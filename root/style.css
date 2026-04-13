@@ -1,12 +1,56 @@
 body {
-  font-family: Arial;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  background: #f5f5f5;
+}
+
+h1 {
+  margin-top: 20px;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+button {
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+button:hover {
+  filter: brightness(1.2);
+}
+
+.tool {
+  background: #111827;
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 20px;
+
+  border-radius: 16px;
+  border: 1px solid #1f2937;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 .tools button {
-  margin: 10px;
-  padding: 10px;
+  background: #1e293b;
+  color: white;
+  border: 1px solid #334155;
+
+  padding: 12px 18px;
+  margin: 6px;
+
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.tools button:hover {
+  background: #334155;
+  transform: translateY(-2px);
 }
 
 .tool {
@@ -125,4 +169,33 @@ textarea {
 .casio button:nth-child(4n) {
   width: 55px;
   font-size: 13px;
+}
+
+input, textarea {
+  width: 90%;
+  padding: 10px;
+
+  border-radius: 10px;
+  border: 1px solid #334155;
+
+  background: #0b1220;
+  color: white;
+
+  margin: 8px 0;
+}
+
+@media (max-width: 600px) {
+  .tool {
+    width: 90%;
+  }
+
+  .casio button {
+    width: 100%;
+  }
+}
+
+.calc-container {
+  background: #111827;
+  padding: 15px;
+  border-radius: 16px;
 }
