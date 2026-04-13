@@ -1,44 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>SaaS Tools Hub v3</title>
+<meta charset="UTF-8">
+<title>SaaS AI Tool Builder v6</title>
 
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- SIDEBAR -->
   <aside class="sidebar">
-    <h2>⚙️ SaaS v3</h2>
+    <h2>AI Tool Builder</h2>
 
-    <input id="search" placeholder="Search 2000 tools...">
+    <input id="search" placeholder="Search tools...">
+
+    <div class="section-title">AI Generator</div>
+
+    <textarea id="aiInput" placeholder="Describe tool (e.g. 'text cleaner that removes vowels')"></textarea>
+    <button onclick="generateTool()">Generate Tool</button>
 
     <div class="section-title">Categories</div>
     <div id="categories"></div>
 
-    <div class="section-title">System</div>
     <button onclick="showAll()">All Tools</button>
-    <button onclick="showType('text')">Text</button>
-    <button onclick="showType('math')">Math</button>
-    <button onclick="showType('encode')">Encode</button>
-    <button onclick="showType('util')">Utilities</button>
+    <button onclick="showUserTools()">My Tools</button>
+
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
-
-    <header>
-      <h1>Tools Dashboard</h1>
-      <p>2000 Real Tools Engine (No Duplicates)</p>
-    </header>
-
-    <div id="toolsGrid"></div>
-
+    <h1>AI Tool System</h1>
+    <div id="grid"></div>
   </main>
 
 </div>

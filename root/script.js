@@ -1,86 +1,83 @@
-/* =========================
-   SAAS v3 ENGINE (2000 REAL TOOLS)
-========================= */
-
-const tools = [];
 
 /* =========================
-   REAL FUNCTION ENGINE
+   CORE TOOL STORAGE
 ========================= */
 
-const engine = {
-  text: {
-    wordCount: i => "Words: " + i.trim().split(/\s+/).filter(Boolean).length,
-    charCount: i => "Chars: " + i.length,
-    reverse: i => i.split("").reverse().join(""),
-    upper: i => i.toUpperCase(),
-    lower: i => i.toLowerCase()
-  },
+let tools = JSON.parse(localStorage.getItem("tools")) || [];
 
-  math: {
-    calc: i => { try { return math.evaluate(i); } catch { return "Error"; } },
-    square: i => Number(i) * Number(i),
-    sqrt: i => Math.sqrt(Number(i))
-  },
+/* =========================
+   DEFAULT ENGINE LIBRARY
+========================= */
 
-  encode: {
-    b64e: i => btoa(i),
-    b64d: i => atob(i),
-    uri: i => encodeURIComponent(i),
-    urid: i => decodeURIComponent(i)
-  },
-
-  util: {
-    random: () => Math.random().toString(36).slice(2),
-    uuid: () => crypto.randomUUID(),
-    time: () => Date.now(),
-    binary: i => Number(i).toString(2)
-  }
+const baseTools = {
+  "remove vowels": (i) => i.replace(/[aeiou]/gi, ""),
+  "reverse text": (i) => i.split("").reverse().join(""),
+  "uppercase": (i) => i.toUpperCase(),
+  "lowercase": (i) => i.toLowerCase(),
+  "word count": (i) => i.trim().split(/\s+/).length,
+  "math": (i) => { try { return math.evaluate(i); } catch { return "error"; } },
+  "base64 encode": (i) => btoa(i),
+  "base64 decode": (i) => atob(i),
+  "slugify": (i) => i.toLowerCase().replace(/\s+/g,"-")
 };
 
 /* =========================
-   TOOL GENERATION (2000 UNIQUE REAL TOOLS)
+   AI TOOL GENERATOR (RULE BASED)
 ========================= */
 
-const types = Object.keys(engine);
-let id = 0;
+function generateTool() {
+  const input = document.getElementById("aiInput").value.toLowerCase();
 
-function createTool(type, fnName) {
-  return {
-    id: id++,
-    name: `${type.toUpperCase()} - ${fnName}`,
-    type,
-    fn: engine[type][fnName],
-    desc: `${type} operation: ${fnName}`
+  if (!input) return;
+
+  let fn = null;
+
+  for (let key in baseTools) {
+    if (input.includes(key)) {
+      fn = baseTools[key];
+      break;
+    }
+  }
+
+  if (!fn) {
+    fn = (i) => "Custom tool created: " + input;
+  }
+
+  const tool = {
+    id: Date.now(),
+    name: input.toUpperCase(),
+    run: fn,
+    user: true
   };
-}
 
-/* build all combinations */
-for (let i = 0; i < 2000; i++) {
-  const type = types[i % types.length];
-  const fnNames = Object.keys(engine[type]);
-
-  const fn = fnNames[i % fnNames.length];
-
-  tools.push(createTool(type, fn));
+  tools.push(tool);
+  saveTools();
+  render(tools);
 }
 
 /* =========================
-   UI RENDER
+   SAVE SYSTEM
 ========================= */
 
-const grid = document.getElementById("toolsGrid");
+function saveTools() {
+  localStorage.setItem("tools", JSON.stringify(tools));
+}
+
+/* =========================
+   RENDER
+========================= */
+
+const grid = document.getElementById("grid");
 
 function render(list) {
   grid.innerHTML = "";
 
-  list.slice(0, 200).forEach(t => {
+  list.forEach(t => {
     const div = document.createElement("div");
     div.className = "card";
 
     div.innerHTML = `
       <b>${t.name}</b>
-      <div style="opacity:0.5;font-size:12px">${t.desc}</div>
       <button onclick="openTool(${t.id})">Open</button>
     `;
 
@@ -102,47 +99,38 @@ window.openTool = function(id) {
 
   panel.innerHTML = `
     <h3>${tool.name}</h3>
-
     <textarea id="input"></textarea>
-
-    <button onclick="runTool(${id})">Run</button>
+    <button onclick="run(${id})">Run</button>
     <button onclick="this.parentElement.remove()">Close</button>
-
-    <p id="output"></p>
+    <p id="out"></p>
   `;
 
   document.body.appendChild(panel);
 };
 
-window.runTool = function(id) {
+window.run = function(id) {
   const tool = tools.find(t => t.id === id);
   const input = document.getElementById("input").value;
 
-  document.getElementById("output").innerText =
-    tool.fn(input);
+  document.getElementById("out").innerText =
+    tool.run(input);
 };
 
 /* =========================
-   SEARCH ENGINE
+   SEARCH
 ========================= */
 
 document.getElementById("search").addEventListener("input", e => {
   const v = e.target.value.toLowerCase();
-
-  render(
-    tools.filter(t =>
-      t.name.toLowerCase().includes(v) ||
-      t.type.includes(v)
-    )
-  );
+  render(tools.filter(t => t.name.toLowerCase().includes(v)));
 });
 
 /* =========================
-   FILTER BY TYPE
+   USER FILTER
 ========================= */
 
-window.showType = function(type) {
-  render(tools.filter(t => t.type === type));
+window.showUserTools = function() {
+  render(tools.filter(t => t.user));
 };
 
 window.showAll = function() {
@@ -150,14 +138,19 @@ window.showAll = function() {
 };
 
 /* =========================
-   CATEGORY SIDEBAR
+   INIT DEFAULT TOOLS (IF EMPTY)
 ========================= */
 
-const catBox = document.getElementById("categories");
+if (tools.length === 0) {
+  Object.keys(baseTools).forEach(k => {
+    tools.push({
+      id: Date.now() + Math.random(),
+      name: k.toUpperCase(),
+      run: baseTools[k],
+      user: false
+    });
+  });
 
-["text","math","encode","util"].forEach(c => {
-  const btn = document.createElement("button");
-  btn.innerText = c.toUpperCase();
-  btn.onclick = () => showType(c);
-  catBox.appendChild(btn);
-});
+  saveTools();
+  render(tools);
+}
