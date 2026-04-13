@@ -460,3 +460,53 @@ function makeBold() {
 function makeItalic() {
   wrap("*", "*");
 }
+
+const editor = document.getElementById("editor");
+
+/* ======================
+   EXECUTE COMMANDS
+====================== */
+function execCmd(command) {
+  document.execCommand(command, false, null);
+}
+
+/* ======================
+   FONT CHANGE
+====================== */
+function changeFont(font) {
+  document.execCommand("fontName", false, font);
+}
+
+/* ======================
+   CLEAR DOCUMENT
+====================== */
+function clearDoc() {
+  editor.innerHTML = "";
+}
+
+/* ======================
+   EXPORT AS TXT
+====================== */
+function exportDoc() {
+  let text = editor.innerText;
+
+  let blob = new Blob([text], { type: "text/plain" });
+  let link = document.createElement("a");
+
+  link.href = URL.createObjectURL(blob);
+  link.download = "document.txt";
+  link.click();
+}
+
+/* ======================
+   LIVE WORD COUNT
+====================== */
+editor.addEventListener("input", () => {
+  let text = editor.innerText;
+
+  let words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+  let chars = text.length;
+
+  document.getElementById("docStats").innerText =
+    `Words: ${words} | Characters: ${chars}`;
+});

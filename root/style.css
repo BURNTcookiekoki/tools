@@ -254,3 +254,44 @@ select {
   color: white;
   border: 1px solid #334155;
 }
+
+#editor {
+  width: 95%;
+  min-height: 300px;
+
+  margin: 10px auto;
+  padding: 15px;
+
+  background: white;
+  color: black;
+
+  border-radius: 8px;
+  border: 1px solid #ccc;
+
+  text-align: left;
+
+  font-size: 16px;
+  outline: none;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+
+  margin-top: 10px;
+}
+
+.toolbar button, .toolbar select {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+
+  background: #f1f1f1;
+  cursor: pointer;
+}
+
+.toolbar button:hover {
+  background: #ddd;
+}

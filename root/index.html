@@ -36,45 +36,37 @@
 </div>
 
 <div id="text" class="tool" style="display:none;">
-  <h2>Text Editor Pro</h2>
+  <h2>Docs Editor</h2>
 
-  <!-- Find / Replace -->
-  <input id="findInput" placeholder="Find...">
-  <input id="replaceInput" placeholder="Replace...">
+  <!-- Toolbar -->
+  <div class="toolbar">
 
-  <!-- Font selector -->
-  <select id="fontSelect" onchange="changeFont()">
-    <option value="Arial">Arial</option>
-    <option value="Georgia">Georgia</option>
-    <option value="Courier New">Courier New</option>
-    <option value="Verdana">Verdana</option>
-    <option value="Times New Roman">Times New Roman</option>
-  </select>
+    <select onchange="changeFont(this.value)">
+      <option value="Arial">Arial</option>
+      <option value="Georgia">Georgia</option>
+      <option value="Courier New">Courier New</option>
+      <option value="Times New Roman">Times</option>
+      <option value="Verdana">Verdana</option>
+    </select>
 
-  <textarea id="textInput" placeholder="Start writing..."></textarea>
+    <button onclick="execCmd('bold')"><b>B</b></button>
+    <button onclick="execCmd('italic')"><i>I</i></button>
+    <button onclick="execCmd('underline')"><u>U</u></button>
 
-  <!-- Buttons -->
-  <div class="text-buttons">
+    <button onclick="execCmd('insertUnorderedList')">• List</button>
+    <button onclick="execCmd('justifyLeft')">⬅</button>
+    <button onclick="execCmd('justifyCenter')">⬌</button>
+    <button onclick="execCmd('justifyRight')">➡</button>
 
-    <button onclick="makeBold()">Bold</button>
-    <button onclick="makeItalic()">Italic</button>
+    <button onclick="clearDoc()">Clear</button>
+    <button onclick="exportDoc()">Export</button>
 
-    <button onclick="toUpper()">UPPER</button>
-    <button onclick="toLower()">lower</button>
-
-    <button onclick="titleCase()">Title</button>
-    <button onclick="reverseText()">Reverse</button>
-
-    <button onclick="cleanSpaces()">Clean</button>
-    <button onclick="findReplace()">Find/Replace</button>
-
-    <button onclick="highlight()">Highlight</button>
-    <button onclick="exportText()">Export</button>
-
-    <button onclick="rewriteText()">Rewrite</button>
   </div>
 
-  <p id="textResult"></p>
+  <!-- Editor -->
+  <div id="editor" contenteditable="true"></div>
+
+  <p id="docStats"></p>
 </div>
 
 <!-- QR Code -->
