@@ -1,0 +1,19 @@
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+.tools button {
+  margin: 10px;
+  padding: 10px;
+}
+
+.tool {
+  margin-top: 20px;
+}
+
+textarea {
+  width: 300px;
+  height: 100px;
+}

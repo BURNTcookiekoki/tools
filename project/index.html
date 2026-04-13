@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Free Tools Hub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>🛠 Free Tools Hub</h1>
+
+<div class="tools">
+  <button onclick="showTool('calc')">Calculator</button>
+  <button onclick="showTool('image')">Image Tools</button>
+  <button onclick="showTool('text')">Text Tools</button>
+  <button onclick="showTool('qr')">QR Generator</button>
+</div>
+
+<!-- Calculator -->
+<div id="calc" class="tool">
+  <h2>Advanced Calculator</h2>
+  <input id="num1" type="number" placeholder="Number 1">
+  <input id="num2" type="number" placeholder="Number 2">
+  <button onclick="add()">+</button>
+  <button onclick="percent()">%</button>
+  <button onclick="sqrt()">√</button>
+  <p id="result"></p>
+</div>
+
+<!-- Image Tools -->
+<div id="image" class="tool" style="display:none;">
+  <h2>Image Tools</h2>
+  <input type="file" id="upload">
+  <br><br>
+  <button onclick="resizeImage()">Resize 50%</button>
+  <button onclick="blurImage()">Blur</button>
+  <button onclick="compressImage()">Compress</button>
+  <br><br>
+  <canvas id="canvas"></canvas>
+</div>
+
+<!-- Text Tools -->
+<div id="text" class="tool" style="display:none;">
+  <h2>Text Tools</h2>
+  <textarea id="textInput" placeholder="Enter text..."></textarea>
+  <br>
+  <button onclick="wordCount()">Word Count</button>
+  <button onclick="toUpper()">UPPERCASE</button>
+  <button onclick="toLower()">lowercase</button>
+  <p id="textResult"></p>
+</div>
+
+<!-- QR Code -->
+<div id="qr" class="tool" style="display:none;">
+  <h2>QR Code Generator</h2>
+  <input id="qrInput" placeholder="Enter text or URL">
+  <button onclick="generateQR()">Generate</button>
+  <br><br>
+  <img id="qrImg">
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
