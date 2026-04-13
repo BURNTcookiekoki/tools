@@ -86,55 +86,53 @@ function generateQR() {
   qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(data);
 }
 
-/* ======================
-   SCIENTIFIC CALCULATOR
-====================== */
-
 let display = document.getElementById("display");
 
+/* ======================
+   STATE
+====================== */
 let shift = false;
 let isDeg = true;
-let history = [];
-let historyIndex = -1;
+
+/* ======================
+   DISPLAY SAFE UPDATE
+====================== */
+function updateDisplay(value) {
+  display.value = value;
+
+  // prevent overflow (auto scroll)
+  display.scrollLeft = display.scrollWidth;
+}
 
 /* ======================
    BASIC INPUT
 ====================== */
 function append(val) {
-  display.value += val;
+  updateDisplay(display.value + val);
 }
 
 function clearDisplay() {
-  display.value = "";
+  updateDisplay("");
 }
 
 function deleteLast() {
-  display.value = display.value.slice(0, -1);
+  updateDisplay(display.value.slice(0, -1));
 }
 
 /* ======================
-   SAFE CALCULATE (NO EVAL)
+   SAFE CALCULATE (NO eval)
 ====================== */
 function calculate() {
   try {
     let expr = display.value;
 
-    // Handle degrees
-    if (isDeg) {
-      expr = expr.replace(/sin\((.*?)\)/g, (_, v) => `sin(${v} deg)`);
-      expr = expr.replace(/cos\((.*?)\)/g, (_, v) => `cos(${v} deg)`);
-      expr = expr.replace(/tan\((.*?)\)/g, (_, v) => `tan(${v} deg)`);
-    }
+    // convert π
+    expr = expr.replace(/π/g, Math.PI);
 
     let result = math.evaluate(expr);
-
-    display.value = result;
-
-    history.push(expr + " = " + result);
-    historyIndex = history.length;
-
+    updateDisplay(result);
   } catch {
-    display.value = "Error";
+    updateDisplay("Error");
   }
 }
 
@@ -143,7 +141,8 @@ function calculate() {
 ====================== */
 function toggleShift() {
   shift = !shift;
-  document.getElementById("shiftBtn").style.background = shift ? "orange" : "";
+  document.getElementById("shiftBtn").style.background =
+    shift ? "orange" : "#2e2e2e";
 }
 
 /* ======================
@@ -155,92 +154,104 @@ function toggleAngle() {
 }
 
 /* ======================
-   FUNCTIONS (SHIFT SUPPORT)
+   TRIG FUNCTIONS
+====================== */
+function sin() {
+  let v = Number(display.value);
+  updateDisplay(
+    Math.sin(isDeg ? v * Math.PI / 180 : v)
+  );
+}
+
+function cos() {
+  let v = Number(display.value);
+  updateDisplay(
+    Math.cos(isDeg ? v * Math.PI / 180 : v)
+  );
+}
+
+function tan() {
+  let v = Number(display.value);
+  updateDisplay(
+    Math.tan(isDeg ? v * Math.PI / 180 : v)
+  );
+}
+
+/* ======================
+   MATH FUNCTIONS
+====================== */
+function sqrt() {
+  updateDisplay(Math.sqrt(Number(display.value)));
+}
+
+function square() {
+  let v = Number(display.value);
+  updateDisplay(v * v);
+}
+
+function percent() {
+  updateDisplay(Number(display.value) / 100);
+}
+
+function reciprocal() {
+  updateDisplay(1 / Number(display.value));
+}
+
+/* ======================
+   SHIFT FUNCTIONS (inverse trig)
 ====================== */
 function handleFunc(func) {
-  let val = display.value || "0";
+  let v = Number(display.value);
 
-  try {
-    let result;
-
-    if (shift) {
-      // inverse trig
-      if (func === "sin") result = math.asin(val);
-      else if (func === "cos") result = math.acos(val);
-      else if (func === "tan") result = math.atan(val);
-      else if (func === "log") result = math.log10(val);
-      else result = val;
-    } else {
-      if (func === "sin") result = math.sin(isDeg ? val + " deg" : val);
-      else if (func === "cos") result = math.cos(isDeg ? val + " deg" : val);
-      else if (func === "tan") result = math.tan(isDeg ? val + " deg" : val);
-      else if (func === "log") result = math.log10(val);
-      else if (func === "sqrt") result = math.sqrt(val);
-      else if (func === "square") result = math.pow(val, 2);
-      else if (func === "power") {
-        append("^");
-        return;
-      }
-      else if (func === "reciprocal") result = 1 / val;
-    }
-
-    display.value = result;
+  if (shift) {
+    if (func === "sin") updateDisplay(Math.asin(v));
+    if (func === "cos") updateDisplay(Math.acos(v));
+    if (func === "tan") updateDisplay(Math.atan(v));
     shift = false;
-
-  } catch {
-    display.value = "Error";
+    document.getElementById("shiftBtn").style.background = "#2e2e2e";
+    return;
   }
+
+  if (func === "sin") sin();
+  if (func === "cos") cos();
+  if (func === "tan") tan();
 }
 
 /* ======================
-   PERCENT
+   LOGS
 ====================== */
-function percent() {
-  display.value = math.evaluate(display.value) / 100;
+function log() {
+  updateDisplay(Math.log10(Number(display.value)));
+}
+
+function ln() {
+  updateDisplay(Math.log(Number(display.value)));
 }
 
 /* ======================
-   FRACTION + SCI NOTATION
+   FRACTION
 ====================== */
 function toFraction() {
   try {
-    let frac = math.fraction(display.value);
-    display.value = frac.n + "/" + frac.d;
+    let f = math.fraction(display.value);
+    updateDisplay(`${f.n}/${f.d}`);
   } catch {
-    display.value = "Error";
-  }
-}
-
-function toScientific() {
-  try {
-    let num = Number(display.value);
-    display.value = num.toExponential(5);
-  } catch {
-    display.value = "Error";
+    updateDisplay("Error");
   }
 }
 
 /* ======================
-   HISTORY
+   SCI NOTATION
 ====================== */
-function historyUp() {
-  if (historyIndex > 0) {
-    historyIndex--;
-    display.value = history[historyIndex];
-  }
-}
-
-function historyDown() {
-  if (historyIndex < history.length - 1) {
-    historyIndex++;
-    display.value = history[historyIndex];
-  }
+function toScientific() {
+  let num = Number(display.value);
+  updateDisplay(num.toExponential(5));
 }
 
 /* ======================
    KEYBOARD SUPPORT
 ====================== */
-document.addEventListener("keydown", function(e) {
+document.addEventListener("keydown", function (e) {
   if (!isNaN(e.key) || "+-*/().".includes(e.key)) {
     append(e.key);
   }
