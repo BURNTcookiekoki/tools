@@ -341,3 +341,122 @@ function openTool(id) {
     tool.scrollIntoView({ behavior: "smooth" });
   }
 }
+
+const textInput = document.getElementById("textInput");
+const textResult = document.getElementById("textResult");
+
+/* ======================
+   LIVE STATS
+====================== */
+textInput.addEventListener("input", updateStats);
+
+function updateStats() {
+  let text = textInput.value;
+
+  let words = text.trim().split(/\s+/).filter(w => w.length > 0).length;
+  let chars = text.length;
+
+  textResult.innerText = `Words: ${words} | Characters: ${chars}`;
+}
+
+/* ======================
+   FONT CHANGE
+====================== */
+function changeFont() {
+  let font = document.getElementById("fontSelect").value;
+  textInput.style.fontFamily = font;
+}
+
+/* ======================
+   BASIC TEXT OPS
+====================== */
+function toUpper() {
+  textInput.value = textInput.value.toUpperCase();
+}
+
+function toLower() {
+  textInput.value = textInput.value.toLowerCase();
+}
+
+function titleCase() {
+  textInput.value = textInput.value
+    .toLowerCase()
+    .replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function reverseText() {
+  textInput.value = textInput.value.split("").reverse().join("");
+}
+
+function cleanSpaces() {
+  textInput.value = textInput.value.replace(/\s+/g, " ").trim();
+}
+
+/* ======================
+   FIND / REPLACE
+====================== */
+function findReplace() {
+  let find = document.getElementById("findInput").value;
+  let replace = document.getElementById("replaceInput").value;
+
+  let regex = new RegExp(find, "g");
+  textInput.value = textInput.value.replace(regex, replace);
+}
+
+/* ======================
+   HIGHLIGHT
+====================== */
+function highlight() {
+  let word = document.getElementById("findInput").value;
+  if (!word) return;
+
+  textInput.value = textInput.value.replace(
+    new RegExp(word, "g"),
+    match => `[[${match}]]`
+  );
+}
+
+/* ======================
+   EXPORT
+====================== */
+function exportText() {
+  let blob = new Blob([textInput.value], { type: "text/plain" });
+  let link = document.createElement("a");
+
+  link.href = URL.createObjectURL(blob);
+  link.download = "text.txt";
+  link.click();
+}
+
+/* ======================
+   REWRITE (simple AI)
+====================== */
+function rewriteText() {
+  textInput.value = textInput.value
+    .replace(/\bi am\b/gi, "I'm")
+    .replace(/\byou are\b/gi, "you're")
+    .replace(/\bis not\b/gi, "isn't")
+    .replace(/\bare not\b/gi, "aren't");
+}
+
+/* ======================
+   BOLD / ITALIC
+====================== */
+function wrap(before, after) {
+  let start = textInput.selectionStart;
+  let end = textInput.selectionEnd;
+
+  let selected = textInput.value.substring(start, end);
+  let beforeText = textInput.value.substring(0, start);
+  let afterText = textInput.value.substring(end);
+
+  textInput.value = beforeText + before + selected + after + afterText;
+}
+
+function makeBold() {
+  wrap("**", "**");
+}
+
+function makeItalic() {
+  wrap("*", "*");
+}

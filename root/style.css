@@ -229,3 +229,28 @@ input, textarea {
 
   outline: none;
 }
+
+#textInput {
+  width: 95%;
+  height: 180px;
+  margin-top: 10px;
+
+  font-size: 16px;
+  padding: 10px;
+}
+
+.text-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+
+select {
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  background: #1e293b;
+  color: white;
+  border: 1px solid #334155;
+}

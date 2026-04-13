@@ -35,14 +35,45 @@
   <canvas id="canvas"></canvas>
 </div>
 
-<!-- Text Tools -->
 <div id="text" class="tool" style="display:none;">
-  <h2>Text Tools</h2>
-  <textarea id="textInput" placeholder="Enter text..."></textarea>
-  <br>
-  <button onclick="wordCount()">Word Count</button>
-  <button onclick="toUpper()">UPPERCASE</button>
-  <button onclick="toLower()">lowercase</button>
+  <h2>Text Editor Pro</h2>
+
+  <!-- Find / Replace -->
+  <input id="findInput" placeholder="Find...">
+  <input id="replaceInput" placeholder="Replace...">
+
+  <!-- Font selector -->
+  <select id="fontSelect" onchange="changeFont()">
+    <option value="Arial">Arial</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Times New Roman">Times New Roman</option>
+  </select>
+
+  <textarea id="textInput" placeholder="Start writing..."></textarea>
+
+  <!-- Buttons -->
+  <div class="text-buttons">
+
+    <button onclick="makeBold()">Bold</button>
+    <button onclick="makeItalic()">Italic</button>
+
+    <button onclick="toUpper()">UPPER</button>
+    <button onclick="toLower()">lower</button>
+
+    <button onclick="titleCase()">Title</button>
+    <button onclick="reverseText()">Reverse</button>
+
+    <button onclick="cleanSpaces()">Clean</button>
+    <button onclick="findReplace()">Find/Replace</button>
+
+    <button onclick="highlight()">Highlight</button>
+    <button onclick="exportText()">Export</button>
+
+    <button onclick="rewriteText()">Rewrite</button>
+  </div>
+
   <p id="textResult"></p>
 </div>
 
