@@ -1,39 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<title>SaaS AI Tool Builder v6</title>
-
+<title>ToolOS v2 Mass Engine</title>
 <link rel="stylesheet" href="style.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
 </head>
 
 <body>
 
-<div class="app">
+<header class="topbar">
+  <h1>ToolOS v2</h1>
+  <input id="search" placeholder="Search 300+ tools...">
+</header>
+
+<div class="layout">
 
   <aside class="sidebar">
-    <h2>AI Tool Builder</h2>
-
-    <input id="search" placeholder="Search tools...">
-
-    <div class="section-title">AI Generator</div>
-
-    <textarea id="aiInput" placeholder="Describe tool (e.g. 'text cleaner that removes vowels')"></textarea>
-    <button onclick="generateTool()">Generate Tool</button>
-
-    <div class="section-title">Categories</div>
-    <div id="categories"></div>
-
-    <button onclick="showAll()">All Tools</button>
-    <button onclick="showUserTools()">My Tools</button>
-
+    <button onclick="filter('all')">All</button>
+    <button onclick="filter('text')">Text</button>
+    <button onclick="filter('math')">Math</button>
+    button onclick="filter('dev')">Dev</button>
+    <button onclick="filter('seo')">SEO</button>
+    <button onclick="filter('image')">Image</button>
   </aside>
 
-  <main class="main">
-    <h1>AI Tool System</h1>
-    <div id="grid"></div>
-  </main>
+  <main id="grid"></main>
 
 </div>
 
