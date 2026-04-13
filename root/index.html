@@ -1,155 +1,37 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Free Tools Hub</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Pro Tools Hub</title>
 
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
 
-  <div class="topbar">
-  <input type="text" id="searchBar" placeholder="Search tools... (calculator, qr, text, image)">
-</div>
-
 </head>
+
 <body>
 
-<h1>🛠 Free Tools Hub</h1>
+<div class="layout">
 
-<div class="tools" id="toolButtons"></div>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <h2>⚙️ Tools Hub</h2>
 
-<!-- Image Tools -->
-<div id="image" class="tool" style="display:none;">
-  <h2>Image Tools</h2>
-  <input type="file" id="upload">
-  <br><br>
-  <button onclick="resizeImage()">Resize 50%</button>
-  <button onclick="blurImage()">Blur</button>
-  <button onclick="compressImage()">Compress</button>
-  <br><br>
-  <canvas id="canvas"></canvas>
-</div>
+    <input id="searchBar" placeholder="Search tools...">
 
-<div id="text" class="tool" style="display:none;">
-  <h2>Docs Editor</h2>
-
-  <!-- Toolbar -->
-  <div class="toolbar">
-
-    <select onchange="changeFont(this.value)">
-      <option value="Arial">Arial</option>
-      <option value="Georgia">Georgia</option>
-      <option value="Courier New">Courier New</option>
-      <option value="Times New Roman">Times</option>
-      <option value="Verdana">Verdana</option>
-    </select>
-
-    <button onclick="execCmd('bold')"><b>B</b></button>
-    <button onclick="execCmd('italic')"><i>I</i></button>
-    <button onclick="execCmd('underline')"><u>U</u></button>
-
-    <button onclick="execCmd('insertUnorderedList')">• List</button>
-    <button onclick="execCmd('justifyLeft')">⬅</button>
-    <button onclick="execCmd('justifyCenter')">⬌</button>
-    <button onclick="execCmd('justifyRight')">➡</button>
-
-    <button onclick="clearDoc()">Clear</button>
-    <button onclick="exportDoc()">Export</button>
-
+    <div id="categories"></div>
   </div>
 
-  <!-- Editor -->
-  <div id="editor" contenteditable="true"></div>
+  <!-- MAIN -->
+  <div class="main">
 
-  <p id="docStats"></p>
-</div>
+    <h1>Pro Tools Hub</h1>
 
-<!-- QR Code -->
-<div id="qr" class="tool" style="display:none;">
-  <h2>QR Code Generator</h2>
-  <input id="qrInput" placeholder="Enter text or URL">
-  <button onclick="generateQR()">Generate</button>
-  <br><br>
-  <img id="qrImg">
-</div>
+    <div id="toolsGrid"></div>
 
-<!-- Scientific Calculator -->
-<div id="sciCalc" class="tool" style="display:none;">
-  <h2>Scientific Calculator</h2>
-
-  <div class="calc-container">
-    <input type="text" id="display" disabled>
-
-    <div class="buttons">
-    <!-- Top row -->
-<div class="buttons casio">
-
-  <!-- SHIFT / MODE -->
-  <button onclick="toggleAngle()" id="angleBtn">DEG</button>
-  <button onclick="clearDisplay()">AC</button>
-
-  <!-- NAV -->
-  <button onclick="deleteLast()">DEL</button>
-  <button onclick="append('/')">÷</button>
-
-  <!-- SCI ROW -->
-  <button onclick="handleFunc('sin')">sin</button>
-  <button onclick="handleFunc('cos')">cos</button>
-  <button onclick="handleFunc('tan')">tan</button>
-  <button onclick="append('*')">×</button>
-
-  <button onclick="handleFunc('log')">log</button>
-  <button onclick="handleFunc('ln')">ln</button>
-  <button onclick="append('^')">xʸ</button>
-  <button onclick="append('-')">−</button>
-
-  <button onclick="handleFunc('sqrt')">√</button>
-  <button onclick="handleFunc('square')">x²</button>
-  <button onclick="append('pi')">π</button>
-  <button onclick="append('+')">+</button>
-
-  <!-- NUMBERS -->
-  <button onclick="append('7')">7</button>
-  <button onclick="append('8')">8</button>
-  <button onclick="append('9')">9</button>
-  <button onclick="append('(')">(</button>
-
-  <button onclick="append('4')">4</button>
-  <button onclick="append('5')">5</button>
-  <button onclick="append('6')">6</button>
-  <button onclick="append(')')">)</button>
-
-  <button onclick="append('1')">1</button>
-  <button onclick="append('2')">2</button>
-  <button onclick="append('3')">3</button>
-  <button onclick="percent()">%</button>
-
-  <button onclick="append('0')">0</button>
-  <button onclick="append('.')">.</button>
-  <button onclick="calculate()" class="equals">=</button>
-
-</div>
-    </div>
   </div>
 </div>
 
 <script src="script.js"></script>
 </body>
 </html>
-
-<div id="imgConvert" class="tool" style="display:none;">
-  <h2>Image Converter</h2>
-
-  <input type="file" id="imgInput" accept="image/*">
-  <br><br>
-
-  <select id="format">
-    <option value="image/png">PNG</option>
-    <option value="image/jpeg">JPG</option>
-    <option value="image/webp">WEBP</option>
-  </select>
-
-  <button onclick="convertImage()">Convert & Download</button>
-
-  <br><br>
-  <canvas id="imgCanvas"></canvas>
-</div>

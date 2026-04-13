@@ -1,297 +1,130 @@
 body {
-  font-family: 'Segoe UI', Arial, sans-serif;
-  background: #0f172a;
-  color: #e5e7eb;
   margin: 0;
-  padding: 0;
-  text-align: center;
+  font-family: Arial, sans-serif;
+  background: #0b1220;
+  color: white;
+}
+
+/* LAYOUT */
+.layout {
+  display: flex;
+  height: 100vh;
+}
+
+/* SIDEBAR */
+.sidebar {
+  width: 260px;
+  background: #111827;
+  padding: 15px;
+  border-right: 1px solid #1f2937;
+}
+
+.sidebar h2 {
+  margin-bottom: 10px;
+}
+
+.sidebar input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 10px;
+  background: #1f2937;
+  color: white;
+}
+
+/* MAIN */
+.main {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
 }
 
 h1 {
-  margin-top: 20px;
-  font-size: 28px;
-  font-weight: 700;
+  margin-top: 0;
 }
 
-button {
-  font-weight: 600;
-  transition: 0.2s;
+/* TOOL GRID */
+#toolsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
 }
 
-button:hover {
-  filter: brightness(1.2);
-}
-
+/* TOOL CARD */
 .tool {
   background: #111827;
-  max-width: 500px;
-  margin: 20px auto;
-  padding: 20px;
-
-  border-radius: 16px;
   border: 1px solid #1f2937;
-
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-}
-
-.tools button {
-  background: #1e293b;
-  color: white;
-  border: 1px solid #334155;
-
-  padding: 12px 18px;
-  margin: 6px;
-
-  border-radius: 10px;
-  cursor: pointer;
-
-  transition: 0.2s;
-}
-
-.tools button:hover {
-  background: #334155;
-  transform: translateY(-2px);
-}
-
-.tool {
-  margin-top: 20px;
-}
-
-textarea {
-  width: 300px;
-  height: 100px;
-}
-
-.calc-container {
-  display: inline-block;
-  background: #1e1e2f;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-
-  /* 🔥 KEY FIX */
-  width: fit-content;
-}
-
-#display {
-  width: 80%;
-  height: 60px;
-
-  font-size: 26px;
-  text-align: right;
-
-  padding: 10px;
-  margin: 0; /* 🔥 removes misalignment */
-
-  background: #d9fdd3;
-  color: #000;
-
-  border: 2px solid #222;
-  border-radius: 8px;
-
-  box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
-
-  font-family: 'Courier New', monospace;
-
-  overflow-x: auto;
-  white-space: nowrap;
-
-  box-sizing: border-box; /* 🔥 important for alignment */
-}
-
-.casio {
-  display: grid;
-  grid-template-columns: repeat(4, 65px);
-
-  gap: 8px;
-
-  /* 🔥 ensures alignment under screen */
-  justify-content: start;
-}
-
-.buttons button {
-  padding: 15px;
-  font-size: 16px;
-  border: none;
-  border-radius: 10px;
-  background: #2d2d44;
-  color: white;
+  border-radius: 12px;
+  padding: 12px;
   cursor: pointer;
   transition: 0.2s;
+  animation: fadeIn 0.3s ease;
 }
 
-.buttons button:hover {
-  background: #4a4a6a;
+.tool:hover {
+  transform: translateY(-4px);
+  background: #1f2937;
 }
 
-.casio {
-  display: grid;
-  grid-template-columns: repeat(4, 65px);
-  gap: 8px;
-}
-
-.casio button {
-  padding: 12px;
-  border-radius: 6px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* Normal keys */
-.casio button {
-  background: #2e2e2e;
-  color: white;
-}
-
-/* SHIFT (yellow) */
-.shift {
-  background: #f5c542;
-  color: black;
-}
-
-/* ALPHA (red) */
-.alpha {
-  background: #d9534f;
-  color: white;
-}
-
-/* EXE button */
-.equals {
-  background: #4CAF50;
-}
-
-/* Hover */
-.casio button:hover {
-  filter: brightness(1.2);
-}
-
-.casio button:nth-child(4n) {
-  width: 55px;
-  font-size: 13px;
-}
-
-input, textarea {
-  width: 90%;
-  padding: 10px;
-
-  border-radius: 10px;
-  border: 1px solid #334155;
-
-  background: #0b1220;
-  color: white;
-
-  margin: 8px 0;
-}
-
-@media (max-width: 600px) {
-  .tool {
-    width: 90%;
-  }
-
-  .casio button {
-    width: 100%;
-  }
-}
-
-.calc-container {
-  background: #111827;
-  padding: 15px;
-  border-radius: 16px;
-}
-
-.tool {
-  transition: all 0.2s ease;
-}
-
-.topbar {
-  position: sticky;
-  top: 0;
-  z-index: 999;
-
-  background: #0f172a;
-  padding: 12px;
-
-  border-bottom: 1px solid #1f2937;
-}
-
-#searchBar {
-  width: 60%;
-  max-width: 500px;
-
-  padding: 10px;
-  border-radius: 10px;
-
-  border: 1px solid #334155;
-
-  background: #111827;
-  color: white;
-
-  outline: none;
-}
-
-#textInput {
-  width: 95%;
-  height: 180px;
-  margin-top: 10px;
-
-  font-size: 16px;
-  padding: 10px;
-}
-
-.text-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin-top: 10px;
-}
-
-select {
-  margin-top: 10px;
+/* BUTTON CATEGORY */
+.cat-btn {
+  width: 100%;
   padding: 8px;
+  margin: 4px 0;
   border-radius: 8px;
-  background: #1e293b;
+  border: none;
+  background: #1f2937;
   color: white;
-  border: 1px solid #334155;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-#editor {
-  width: 95%;
-  min-height: 300px;
-
-  margin: 10px auto;
-  padding: 15px;
-
-  background: white;
-  color: black;
-
-  border-radius: 8px;
-  border: 1px solid #ccc;
-
-  text-align: left;
-
-  font-size: 16px;
-  outline: none;
+.cat-btn:hover {
+  background: #374151;
 }
 
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  justify-content: center;
-
-  margin-top: 10px;
+/* ANIMATION */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
-.toolbar button, .toolbar select {
-  padding: 6px 10px;
+/* TOOL PANEL */
+.panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111827;
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid #374151;
+  width: 320px;
+  animation: fadeIn 0.2s ease;
+}
+
+.panel input, .panel textarea {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0;
   border-radius: 6px;
-  border: 1px solid #ccc;
+  border: none;
+  background: #1f2937;
+  color: white;
+}
 
-  background: #f1f1f1;
+.panel button {
+  padding: 8px;
+  width: 100%;
+  margin-top: 6px;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
   cursor: pointer;
 }
 
-.toolbar button:hover {
-  background: #ddd;
+.panel button:hover {
+  background: #1d4ed8;
 }
