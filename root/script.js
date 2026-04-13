@@ -260,3 +260,84 @@ document.addEventListener("keydown", function (e) {
   if (e.key === "Backspace") deleteLast();
   if (e.key === "Escape") clearDisplay();
 });
+
+const searchBar = document.getElementById("searchBar");
+
+const toolsMap = [
+  { id: "calc", keywords: ["calculator", "calc", "math"] },
+  { id: "sciCalc", keywords: ["scientific", "science calc", "casio", "fx"] },
+  { id: "image", keywords: ["image", "photo", "resize", "compress", "blur"] },
+  { id: "text", keywords: ["text", "word", "uppercase", "lowercase"] },
+  { id: "qr", keywords: ["qr", "qr code", "barcode"] }
+];
+
+let lastMatch = null;
+
+/* ======================
+   FUZZY SEARCH (typos allowed)
+====================== */
+function similarity(a, b) {
+  a = a.toLowerCase();
+  b = b.toLowerCase();
+
+  let matches = 0;
+  for (let char of a) {
+    if (b.includes(char)) matches++;
+  }
+
+  return matches / Math.max(a.length, b.length);
+}
+
+/* ======================
+   SEARCH ENGINE
+====================== */
+searchBar.addEventListener("input", function () {
+  let value = this.value.toLowerCase();
+
+  if (value === "") {
+    document.querySelectorAll(".tool").forEach(t => t.style.display = "block");
+    lastMatch = null;
+    return;
+  }
+
+  let bestMatch = null;
+  let bestScore = 0;
+
+  for (let tool of toolsMap) {
+    for (let keyword of tool.keywords) {
+      let score =
+        keyword.includes(value)
+          ? 1
+          : similarity(value, keyword);
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = tool.id;
+      }
+    }
+  }
+
+  // show best match only
+  document.querySelectorAll(".tool").forEach(t => t.style.display = "none");
+
+  if (bestMatch) {
+    document.getElementById(bestMatch).style.display = "block";
+    lastMatch = bestMatch;
+  }
+});
+
+searchBar.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && lastMatch) {
+    openTool(lastMatch);
+  }
+});
+
+function openTool(id) {
+  document.querySelectorAll(".tool").forEach(t => t.style.display = "none");
+
+  let tool = document.getElementById(id);
+  if (tool) {
+    tool.style.display = "block";
+    tool.scrollIntoView({ behavior: "smooth" });
+  }
+}

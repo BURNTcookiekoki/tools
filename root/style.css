@@ -199,3 +199,33 @@ input, textarea {
   padding: 15px;
   border-radius: 16px;
 }
+
+.tool {
+  transition: all 0.2s ease;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+
+  background: #0f172a;
+  padding: 12px;
+
+  border-bottom: 1px solid #1f2937;
+}
+
+#searchBar {
+  width: 60%;
+  max-width: 500px;
+
+  padding: 10px;
+  border-radius: 10px;
+
+  border: 1px solid #334155;
+
+  background: #111827;
+  color: white;
+
+  outline: none;
+}
