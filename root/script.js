@@ -85,3 +85,49 @@ function generateQR() {
   let data = qrInput.value;
   qrImg.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=" + encodeURIComponent(data);
 }
+
+/* ======================
+   SCIENTIFIC CALCULATOR
+====================== */
+
+let display = document.getElementById("display");
+
+function append(value) {
+  display.value += value;
+}
+
+function clearDisplay() {
+  display.value = "";
+}
+
+function calculate() {
+  try {
+    display.value = eval(display.value);
+  } catch {
+    display.value = "Error";
+  }
+}
+
+function sqrt() {
+  display.value = Math.sqrt(eval(display.value));
+}
+
+function power() {
+  display.value = Math.pow(eval(display.value), 2);
+}
+
+function sin() {
+  display.value = Math.sin(eval(display.value));
+}
+
+function cos() {
+  display.value = Math.cos(eval(display.value));
+}
+
+function tan() {
+  display.value = Math.tan(eval(display.value));
+}
+
+function log() {
+  display.value = Math.log10(eval(display.value));
+}

@@ -9,21 +9,11 @@
 <h1>🛠 Free Tools Hub</h1>
 
 <div class="tools">
+  <button onclick="showTool('sciCalc')">Scientific</button>
   <button onclick="showTool('calc')">Calculator</button>
   <button onclick="showTool('image')">Image Tools</button>
   <button onclick="showTool('text')">Text Tools</button>
   <button onclick="showTool('qr')">QR Generator</button>
-</div>
-
-<!-- Calculator -->
-<div id="calc" class="tool">
-  <h2>Advanced Calculator</h2>
-  <input id="num1" type="number" placeholder="Number 1">
-  <input id="num2" type="number" placeholder="Number 2">
-  <button onclick="add()">+</button>
-  <button onclick="percent()">%</button>
-  <button onclick="sqrt()">√</button>
-  <p id="result"></p>
 </div>
 
 <!-- Image Tools -->
@@ -46,6 +36,7 @@
   <button onclick="wordCount()">Word Count</button>
   <button onclick="toUpper()">UPPERCASE</button>
   <button onclick="toLower()">lowercase</button>
+  <button onclick="showTool('sciCalc')">Scientific</button>
   <p id="textResult"></p>
 </div>
 
@@ -56,6 +47,48 @@
   <button onclick="generateQR()">Generate</button>
   <br><br>
   <img id="qrImg">
+</div>
+
+<!-- Scientific Calculator -->
+<div id="sciCalc" class="tool" style="display:none;">
+  <h2>Scientific Calculator</h2>
+
+  <div class="calc-container">
+    <input type="text" id="display" disabled>
+
+    <div class="buttons">
+      <button onclick="clearDisplay()">C</button>
+      <button onclick="append('(')">(</button>
+      <button onclick="append(')')">)</button>
+      <button onclick="append('/')">÷</button>
+
+      <button onclick="append('7')">7</button>
+      <button onclick="append('8')">8</button>
+      <button onclick="append('9')">9</button>
+      <button onclick="append('*')">×</button>
+
+      <button onclick="append('4')">4</button>
+      <button onclick="append('5')">5</button>
+      <button onclick="append('6')">6</button>
+      <button onclick="append('-')">−</button>
+
+      <button onclick="append('1')">1</button>
+      <button onclick="append('2')">2</button>
+      <button onclick="append('3')">3</button>
+      <button onclick="append('+')">+</button>
+
+      <button onclick="append('0')">0</button>
+      <button onclick="append('.')">.</button>
+      <button onclick="calculate()">=</button>
+
+      <button onclick="sqrt()">√</button>
+      <button onclick="power()">x²</button>
+      <button onclick="sin()">sin</button>
+      <button onclick="cos()">cos</button>
+      <button onclick="tan()">tan</button>
+      <button onclick="log()">log</button>
+    </div>
+  </div>
 </div>
 
 <script src="script.js"></script>
