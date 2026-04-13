@@ -28,13 +28,18 @@ textarea {
 
 #display {
   width: 100%;
-  height: 50px;
-  font-size: 20px;
-  margin-bottom: 10px;
+  height: 60px;
+  font-size: 26px;
   text-align: right;
   padding: 10px;
-  border: none;
+
+  background: #d9fdd3;           /* light green LCD */
+  color: #000;                   /* dark numbers */
+  border: 2px solid #222;
   border-radius: 8px;
+
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+  font-family: 'Courier New', monospace;
 }
 
 .buttons {
@@ -56,4 +61,46 @@ textarea {
 
 .buttons button:hover {
   background: #4a4a6a;
+}
+
+.casio {
+  display: grid;
+  grid-template-columns: repeat(4, 65px);
+  gap: 8px;
+}
+
+.casio button {
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Normal keys */
+.casio button {
+  background: #2e2e2e;
+  color: white;
+}
+
+/* SHIFT (yellow) */
+.shift {
+  background: #f5c542;
+  color: black;
+}
+
+/* ALPHA (red) */
+.alpha {
+  background: #d9534f;
+  color: white;
+}
+
+/* EXE button */
+.equals {
+  background: #4CAF50;
+}
+
+/* Hover */
+.casio button:hover {
+  filter: brightness(1.2);
 }

@@ -61,55 +61,57 @@
 
     <div class="buttons">
     <!-- Top row -->
-<button onclick="toggleShift()" id="shiftBtn">SHIFT</button>
-<button onclick="toggleAngle()" id="angleBtn">DEG</button>
-<button onclick="clearDisplay()">AC</button>
-<button onclick="deleteLast()">DEL</button>
+<div class="buttons casio">
 
-<!-- History nav -->
-<button onclick="historyUp()">⬆</button>
-<button onclick="historyDown()">⬇</button>
+  <!-- SHIFT / MODE -->
+  <button class="shift" onclick="toggleShift()">SHIFT</button>
+  <button class="alpha">ALPHA</button>
+  <button onclick="toggleAngle()" id="angleBtn">DEG</button>
+  <button onclick="clearDisplay()">AC</button>
 
-<!-- Core -->
-<button onclick="append('(')">(</button>
-<button onclick="append(')')">)</button>
-<button onclick="append('/')">÷</button>
-<button onclick="append('*')">×</button>
+  <!-- NAV -->
+  <button onclick="historyUp()">↑</button>
+  <button onclick="historyDown()">↓</button>
+  <button onclick="deleteLast()">DEL</button>
+  <button onclick="append('/')">÷</button>
 
-<!-- Numbers -->
-<button onclick="append('7')">7</button>
-<button onclick="append('8')">8</button>
-<button onclick="append('9')">9</button>
-<button onclick="append('-')">−</button>
+  <!-- SCI ROW -->
+  <button onclick="handleFunc('sin')">sin</button>
+  <button onclick="handleFunc('cos')">cos</button>
+  <button onclick="handleFunc('tan')">tan</button>
+  <button onclick="append('*')">×</button>
 
-<button onclick="append('4')">4</button>
-<button onclick="append('5')">5</button>
-<button onclick="append('6')">6</button>
-<button onclick="append('+')">+</button>
+  <button onclick="handleFunc('log')">log</button>
+  <button onclick="handleFunc('ln')">ln</button>
+  <button onclick="append('^')">xʸ</button>
+  <button onclick="append('-')">−</button>
 
-<button onclick="append('1')">1</button>
-<button onclick="append('2')">2</button>
-<button onclick="append('3')">3</button>
-<button onclick="calculate()">=</button>
+  <button onclick="handleFunc('sqrt')">√</button>
+  <button onclick="handleFunc('square')">x²</button>
+  <button onclick="append('pi')">π</button>
+  <button onclick="append('+')">+</button>
 
-<button onclick="append('0')">0</button>
-<button onclick="append('.')">.</button>
-<button onclick="percent()">%</button>
-<button onclick="append('pi')">π</button>
+  <!-- NUMBERS -->
+  <button onclick="append('7')">7</button>
+  <button onclick="append('8')">8</button>
+  <button onclick="append('9')">9</button>
+  <button onclick="append('(')">(</button>
 
-<!-- Scientific -->
-<button onclick="handleFunc('sin')">sin</button>
-<button onclick="handleFunc('cos')">cos</button>
-<button onclick="handleFunc('tan')">tan</button>
-<button onclick="handleFunc('log')">log</button>
+  <button onclick="append('4')">4</button>
+  <button onclick="append('5')">5</button>
+  <button onclick="append('6')">6</button>
+  <button onclick="append(')')">)</button>
 
-<button onclick="handleFunc('sqrt')">√</button>
-<button onclick="handleFunc('square')">x²</button>
-<button onclick="handleFunc('power')">xʸ</button>
-<button onclick="handleFunc('reciprocal')">1/x</button>
+  <button onclick="append('1')">1</button>
+  <button onclick="append('2')">2</button>
+  <button onclick="append('3')">3</button>
+  <button onclick="percent()">%</button>
 
-<button onclick="toFraction()">a/b</button>
-<button onclick="toScientific()">EXP</button>
+  <button onclick="append('0')">0</button>
+  <button onclick="append('.')">.</button>
+  <button onclick="calculate()" class="equals">EXE</button>
+
+</div>
     </div>
   </div>
 </div>
