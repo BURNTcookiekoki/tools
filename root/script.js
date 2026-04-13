@@ -92,42 +92,160 @@ function generateQR() {
 
 let display = document.getElementById("display");
 
-function append(value) {
-  display.value += value;
+let shift = false;
+let isDeg = true;
+let history = [];
+let historyIndex = -1;
+
+/* ======================
+   BASIC INPUT
+====================== */
+function append(val) {
+  display.value += val;
 }
 
 function clearDisplay() {
   display.value = "";
 }
 
+function deleteLast() {
+  display.value = display.value.slice(0, -1);
+}
+
+/* ======================
+   SAFE CALCULATE (NO EVAL)
+====================== */
 function calculate() {
   try {
-    display.value = eval(display.value);
+    let expr = display.value;
+
+    // Handle degrees
+    if (isDeg) {
+      expr = expr.replace(/sin\((.*?)\)/g, (_, v) => `sin(${v} deg)`);
+      expr = expr.replace(/cos\((.*?)\)/g, (_, v) => `cos(${v} deg)`);
+      expr = expr.replace(/tan\((.*?)\)/g, (_, v) => `tan(${v} deg)`);
+    }
+
+    let result = math.evaluate(expr);
+
+    display.value = result;
+
+    history.push(expr + " = " + result);
+    historyIndex = history.length;
+
   } catch {
     display.value = "Error";
   }
 }
 
-function sqrt() {
-  display.value = Math.sqrt(eval(display.value));
+/* ======================
+   SHIFT MODE
+====================== */
+function toggleShift() {
+  shift = !shift;
+  document.getElementById("shiftBtn").style.background = shift ? "orange" : "";
 }
 
-function power() {
-  display.value = Math.pow(eval(display.value), 2);
+/* ======================
+   DEG / RAD
+====================== */
+function toggleAngle() {
+  isDeg = !isDeg;
+  document.getElementById("angleBtn").innerText = isDeg ? "DEG" : "RAD";
 }
 
-function sin() {
-  display.value = Math.sin(eval(display.value));
+/* ======================
+   FUNCTIONS (SHIFT SUPPORT)
+====================== */
+function handleFunc(func) {
+  let val = display.value || "0";
+
+  try {
+    let result;
+
+    if (shift) {
+      // inverse trig
+      if (func === "sin") result = math.asin(val);
+      else if (func === "cos") result = math.acos(val);
+      else if (func === "tan") result = math.atan(val);
+      else if (func === "log") result = math.log10(val);
+      else result = val;
+    } else {
+      if (func === "sin") result = math.sin(isDeg ? val + " deg" : val);
+      else if (func === "cos") result = math.cos(isDeg ? val + " deg" : val);
+      else if (func === "tan") result = math.tan(isDeg ? val + " deg" : val);
+      else if (func === "log") result = math.log10(val);
+      else if (func === "sqrt") result = math.sqrt(val);
+      else if (func === "square") result = math.pow(val, 2);
+      else if (func === "power") {
+        append("^");
+        return;
+      }
+      else if (func === "reciprocal") result = 1 / val;
+    }
+
+    display.value = result;
+    shift = false;
+
+  } catch {
+    display.value = "Error";
+  }
 }
 
-function cos() {
-  display.value = Math.cos(eval(display.value));
+/* ======================
+   PERCENT
+====================== */
+function percent() {
+  display.value = math.evaluate(display.value) / 100;
 }
 
-function tan() {
-  display.value = Math.tan(eval(display.value));
+/* ======================
+   FRACTION + SCI NOTATION
+====================== */
+function toFraction() {
+  try {
+    let frac = math.fraction(display.value);
+    display.value = frac.n + "/" + frac.d;
+  } catch {
+    display.value = "Error";
+  }
 }
 
-function log() {
-  display.value = Math.log10(eval(display.value));
+function toScientific() {
+  try {
+    let num = Number(display.value);
+    display.value = num.toExponential(5);
+  } catch {
+    display.value = "Error";
+  }
 }
+
+/* ======================
+   HISTORY
+====================== */
+function historyUp() {
+  if (historyIndex > 0) {
+    historyIndex--;
+    display.value = history[historyIndex];
+  }
+}
+
+function historyDown() {
+  if (historyIndex < history.length - 1) {
+    historyIndex++;
+    display.value = history[historyIndex];
+  }
+}
+
+/* ======================
+   KEYBOARD SUPPORT
+====================== */
+document.addEventListener("keydown", function(e) {
+  if (!isNaN(e.key) || "+-*/().".includes(e.key)) {
+    append(e.key);
+  }
+
+  if (e.key === "Enter") calculate();
+  if (e.key === "Backspace") deleteLast();
+  if (e.key === "Escape") clearDisplay();
+});
