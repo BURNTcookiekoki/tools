@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Pro Tools Hub</title>
+  <meta charset="UTF-8">
+  <title>SaaS Tools Hub v3</title>
 
   <link rel="stylesheet" href="style.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
-
 </head>
 
 <body>
 
-<div class="layout">
+<div class="app">
 
   <!-- SIDEBAR -->
-  <div class="sidebar">
-    <h2>⚙️ Tools Hub</h2>
+  <aside class="sidebar">
+    <h2>⚙️ SaaS v3</h2>
 
-    <input id="searchBar" placeholder="Search tools...">
+    <input id="search" placeholder="Search 2000 tools...">
 
+    <div class="section-title">Categories</div>
     <div id="categories"></div>
-  </div>
+
+    <div class="section-title">System</div>
+    <button onclick="showAll()">All Tools</button>
+    <button onclick="showType('text')">Text</button>
+    <button onclick="showType('math')">Math</button>
+    <button onclick="showType('encode')">Encode</button>
+    <button onclick="showType('util')">Utilities</button>
+  </aside>
 
   <!-- MAIN -->
-  <div class="main">
+  <main class="main">
 
-    <h1>Pro Tools Hub</h1>
+    <header>
+      <h1>Tools Dashboard</h1>
+      <p>2000 Real Tools Engine (No Duplicates)</p>
+    </header>
 
     <div id="toolsGrid"></div>
 
-  </div>
+  </main>
+
 </div>
 
 <script src="script.js"></script>

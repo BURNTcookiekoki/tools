@@ -1,12 +1,11 @@
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b1220;
+  font-family: Arial;
+  background: #0a0f1c;
   color: white;
 }
 
-/* LAYOUT */
-.layout {
+.app {
   display: flex;
   height: 100vh;
 }
@@ -14,13 +13,9 @@ body {
 /* SIDEBAR */
 .sidebar {
   width: 260px;
-  background: #111827;
+  background: #0f172a;
   padding: 15px;
-  border-right: 1px solid #1f2937;
-}
-
-.sidebar h2 {
-  margin-bottom: 10px;
+  border-right: 1px solid #1e293b;
 }
 
 .sidebar input {
@@ -28,9 +23,30 @@ body {
   padding: 10px;
   border-radius: 8px;
   border: none;
-  margin-bottom: 10px;
-  background: #1f2937;
+  background: #1e293b;
   color: white;
+}
+
+.section-title {
+  margin-top: 12px;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 6px;
+  border-radius: 8px;
+  border: none;
+  background: #1e293b;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #334155;
 }
 
 /* MAIN */
@@ -40,57 +56,29 @@ body {
   overflow-y: auto;
 }
 
-h1 {
-  margin-top: 0;
-}
-
-/* TOOL GRID */
 #toolsGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 12px;
+  margin-top: 20px;
 }
 
 /* TOOL CARD */
-.tool {
+.card {
   background: #111827;
   border: 1px solid #1f2937;
-  border-radius: 12px;
   padding: 12px;
+  border-radius: 12px;
   cursor: pointer;
   transition: 0.2s;
-  animation: fadeIn 0.3s ease;
 }
 
-.tool:hover {
+.card:hover {
   transform: translateY(-4px);
   background: #1f2937;
 }
 
-/* BUTTON CATEGORY */
-.cat-btn {
-  width: 100%;
-  padding: 8px;
-  margin: 4px 0;
-  border-radius: 8px;
-  border: none;
-  background: #1f2937;
-  color: white;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.cat-btn:hover {
-  background: #374151;
-}
-
-/* ANIMATION */
-@keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-/* TOOL PANEL */
+/* PANEL */
 .panel {
   position: fixed;
   top: 50%;
@@ -99,32 +87,23 @@ h1 {
   background: #111827;
   padding: 20px;
   border-radius: 12px;
-  border: 1px solid #374151;
-  width: 320px;
-  animation: fadeIn 0.2s ease;
+  width: 360px;
+  border: 1px solid #334155;
+  animation: fade 0.2s ease;
 }
 
-.panel input, .panel textarea {
+.panel textarea {
   width: 100%;
-  padding: 8px;
-  margin: 5px 0;
-  border-radius: 6px;
+  height: 90px;
+  margin-top: 10px;
+  background: #0f172a;
   border: none;
-  background: #1f2937;
   color: white;
+  padding: 8px;
+  border-radius: 8px;
 }
 
-.panel button {
-  padding: 8px;
-  width: 100%;
-  margin-top: 6px;
-  border: none;
-  border-radius: 6px;
-  background: #2563eb;
-  color: white;
-  cursor: pointer;
-}
-
-.panel button:hover {
-  background: #1d4ed8;
+@keyframes fade {
+  from {opacity:0; transform: translate(-50%, -55%);}
+  to {opacity:1; transform: translate(-50%, -50%);}
 }
