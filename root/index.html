@@ -15,13 +15,7 @@
 
 <h1>🛠 Free Tools Hub</h1>
 
-<div class="tools">
-  <button onclick="showTool('sciCalc')">Scientific</button>
-  <button onclick="showTool('calc')">Calculator</button>
-  <button onclick="showTool('image')">Image Tools</button>
-  <button onclick="showTool('text')">Text Tools</button>
-  <button onclick="showTool('qr')">QR Generator</button>
-</div>
+<div class="tools" id="toolButtons"></div>
 
 <!-- Image Tools -->
 <div id="image" class="tool" style="display:none;">
@@ -141,3 +135,21 @@
 <script src="script.js"></script>
 </body>
 </html>
+
+<div id="imgConvert" class="tool" style="display:none;">
+  <h2>Image Converter</h2>
+
+  <input type="file" id="imgInput" accept="image/*">
+  <br><br>
+
+  <select id="format">
+    <option value="image/png">PNG</option>
+    <option value="image/jpeg">JPG</option>
+    <option value="image/webp">WEBP</option>
+  </select>
+
+  <button onclick="convertImage()">Convert & Download</button>
+
+  <br><br>
+  <canvas id="imgCanvas"></canvas>
+</div>
